@@ -10,7 +10,7 @@ struct
   datatype 'a set = NvSt of 'a list
   exception Range
   fun unwrap (NvSt l) = l
-  fun pack l = (NvSt l)
+  fun pack l = (NvSt l) (* unsafe *)
 
   fun member' _ (NvSt []) x = false
     | member' f (NvSt (y::ys)) x = f x y orelse member' f (pack ys) x
@@ -92,5 +92,12 @@ struct
   val rec map' = fn f => (fn [] => []
                        | (x::xs) => f x :: (map' f xs))
   val map = fn f => toSet o ((map' f) o unwrap)
+
+  fun filter f (NvSt []) = emp
+    | filter f (NvSt (x::xs)) = let
+      val r = filter f (pack xs)
+    in
+      if f x then pack (x::(unwrap r)) else r
+    end
 end
 

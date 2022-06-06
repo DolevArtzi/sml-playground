@@ -28,6 +28,7 @@ signature SET = sig
   val reduce1toN : int -> (int -> int -> int) -> int -> int
   (* obviously, map preserves uniqueness (aka not very useful) *)
   val map : (''a -> ''b) -> ''a set -> ''b set
+  val filter : (''a -> bool) -> ''a set -> ''a set
 
   val toString : (''a -> string) -> ''a set -> string
   val f : int set -> string
