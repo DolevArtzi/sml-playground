@@ -14,7 +14,7 @@ signature SET = sig
   val remove' : ''a set -> ''a -> bool * ''a set
 
   val toSet : ''a list -> ''a set
-  val % : ''a list -> ''a set
+  val % : ''a list -> ''a set (* alias for toSet *)
   val unwrap : ''a set -> ''a list
 
 
@@ -24,6 +24,7 @@ signature SET = sig
 
   val member : ''a set -> ''a -> bool
   val setEq : ''a set -> ''a set -> bool
+  (* reduce1toN n f b ==> reduce f (Zn n) b *)
   val reduce : (''a -> ''a -> ''a) -> ''a set -> ''a -> ''a
   val reduce1toN : int -> (int -> int -> int) -> int -> int
   (* obviously, map preserves uniqueness (aka not very useful) *)
